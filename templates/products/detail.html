@@ -32,8 +32,8 @@
                     </svg>
                 </div>
                 {% endif %}
-                {% if product.discount_price %}
-                <span class="sale-badge !top-4 !left-4">Sale!</span>
+                {% if product.is_on_sale %}
+                <span class="sale-badge !top-4 !left-4">{{ product.sale_badge_text|default:"Sale!" }}</span>
                 {% endif %}
             </div>
         </div>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="flex items-center gap-3">
-                {% if product.discount_price %}
+                {% if product.is_on_sale and product.discount_price %}
                 <span class="text-2xl font-bold" style="color: var(--text-primary);">${{ product.discount_price }}</span>
                 <span class="text-lg line-through" style="color: var(--text-muted);">${{ product.price }}</span>
                 <span class="text-xs font-medium px-2.5 py-1 rounded-full" style="background: var(--accent-light); color: var(--accent);">

@@ -153,8 +153,8 @@
                             </div>
                             {% endif %}
 
-                            {% if product.discount_price %}
-                            <span class="sale-badge">Sale!</span>
+                            {% if product.is_on_sale %}
+                            <span class="sale-badge">{{ product.sale_badge_text|default:"Sale!" }}</span>
                             {% endif %}
 
                             {% if request.user == product.seller %}
@@ -168,7 +168,7 @@
                             <p class="product-category">{{ product.category.name }}</p>
                             <h4 class="product-name line-clamp-1">{{ product.name }}</h4>
                             <div class="product-price">
-                                {% if product.discount_price %}
+                                {% if product.is_on_sale and product.discount_price %}
                                 <span class="original">${{ product.price }}</span>
                                 <span>${{ product.discount_price }}</span>
                                 {% else %}

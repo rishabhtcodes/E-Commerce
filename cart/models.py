@@ -24,6 +24,6 @@ class CartItem(models.Model):
 
     @property
     def total_price(self):
-        if self.product.discount_price:
+        if self.product.is_on_sale and self.product.discount_price:
             return self.product.discount_price * self.quantity
         return self.product.price * self.quantity
