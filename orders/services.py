@@ -40,11 +40,10 @@ class CheckoutService:
 
                 # 2. Create Order Items and Update Stock
                 for item in cart.items.all():
-                    final_price = item.product.discount_price if (item.product.is_on_sale and item.product.discount_price) else item.product.price
                     OrderItem.objects.create(
                         order=order,
                         product=item.product,
-                        price=final_price,
+                        price=item.product.discount_price or item.product.price,
                         quantity=item.quantity
                     )
                     # Update stock

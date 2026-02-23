@@ -48,16 +48,11 @@ def seed_data():
 
     for p_data in products_data:
         cat = Category.objects.get(name=p_data["category"])
-        is_sale = p_data["discount_price"] is not None
-        badge_text = random.choice(["Sale!", "Hot Deal!", "Clearance"]) if is_sale else "Sale!"
-
         product = Product.objects.create(
             category=cat,
             name=p_data["name"],
             price=p_data["price"],
             discount_price=p_data["discount_price"],
-            is_on_sale=is_sale,
-            sale_badge_text=badge_text,
             stock=p_data["stock"],
             description=f"This is a premium {p_data['name']} from our {p_data['category']} collection.",
             is_available=True
