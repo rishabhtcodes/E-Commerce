@@ -45,3 +45,23 @@ def order_history(request):
 def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     return render(request, 'orders/detail.html', {'order': order})
+
+@login_required
+def update_order_status(request, order_id, status):
+    if request.user.role != 'seller':
+        messages.error(request, "Only sellers can perform this action.")
+        return redirect('product_list')
+        
+    order = get_object_or_404(Order, id=order_id)
+    # Check if the seller has any product in this order
+    if not order.items.filter(product__seller=request.user).exists():
+        messages.error(request, "You cannot modify this order.")
+        return redirect('seller_dashboard')
+        
+    if request.method == 'POST' and status in ['Shipped', 'Cancelled']:
+        order.status = status
+        order.save()
+        verb = "allowed (shipped)" if status == "Shipped" else "cancelled"
+        messages.success(request, f"Order #{order.id} has been {verb}.")
+        
+    return redirect('seller_dashboard')
