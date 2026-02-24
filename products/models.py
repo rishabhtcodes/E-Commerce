@@ -31,6 +31,8 @@ class Product(models.Model):
     stock = models.IntegerField(default=0)
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     is_available = models.BooleanField(default=True)
+    is_on_sale = models.BooleanField(default=False, help_text="Toggle to enable or disable the sale status and badge.")
+    sale_badge_text = models.CharField(max_length=50, blank=True, default="Sale!", help_text="Custom text for the sale badge (e.g., '20% OFF', 'Clearance').")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
