@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 100
+extend-exclude =
+    env,
+    venv,
+    .venv,
+    .git,
+    __pycache__,
+    */migrations/*,
+    staticfiles,
+    media,
+    node_modules
