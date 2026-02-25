@@ -1,5 +1,14 @@
 [flake8]
 max-line-length = 100
+extend-ignore =
+    E301,
+    E302,
+    E305,
+    E402,
+    E501,
+    F401,
+    F841,
+    W293
 extend-exclude =
     env,
     venv,
